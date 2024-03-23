@@ -32,7 +32,7 @@ export const App = () => {
 	const { onAddTodo } = useRequestAddTodo(refreshList);
 	const { onRemoveTodo } = useRequestRemoveTodo(refreshList);
 	const { onEditTodo } = useRequestEditTodo(refreshList);
-	const { onSortTodo } = useRequestSortTodo(refreshList);
+	const { onSortTodo } = useRequestSortTodo(todoList, setTodoList, refreshList);
 	const { resultSearch } = useSearch(todoList, valueSearch);
 
 	return (
@@ -55,7 +55,7 @@ export const App = () => {
 						</small>
 					) : (
 						<Todos
-							todoList={valueSearch ? resultSearch : todoList}
+							todoList={(valueSearch ? resultSearch : todoList)}
 							onRemoveTodo={onRemoveTodo}
 							onEditTodo={onEditTodo}
 						/>

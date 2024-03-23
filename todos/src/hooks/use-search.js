@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {useDebounce} from './use-debounce';
+import { useDebounce } from './use-debounce';
 
 export const useSearch = (todoList, valueSearch) => {
 	const [resultSearch, setResultSearch] = useState([]);
@@ -7,12 +7,12 @@ export const useSearch = (todoList, valueSearch) => {
 	const debounceValue = useDebounce(valueSearch, 1000);
 
 	useEffect(() => {
-		if (debounceValue && debounceValue.trim() !== '') {
-			fetch(`http://localhost:3005/todos/title=${debounceValue}`)
+		if (debounceValue?.trim()) {
+			fetch(`http://localhost:3005/todos?title=${debounceValue}`)
 				.then((response) => response.json())
 				.then((data) => {
 					setResultSearch(data);
-				})
+				});
 		} else {
 			setResultSearch(todoList);
 		}
