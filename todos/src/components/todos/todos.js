@@ -1,17 +1,27 @@
 import styles from './todos.module.css';
+import { Button } from '../../components';
 
-export const ToDos = ({ todoList }) => {
+export const Todos = ({ todoList, onEditTodo, onRemoveTodo, isLoading }) => {
 	return (
 		<>
-			<h2 className={styles.title}>ToDos</h2>
-			<div>
-				{Object.values(todoList)
-					.filter((todo) => todo.userId === 1)
-					.map((todo) => (
-						<div key={todo.id} className={styles.todo}>
-							{todo.title}
+			<div className={styles.todoList}>
+				<div>
+					{todoList.map((todo) => (
+						<div key={todo.id} className={styles.todo} id={todo.id}>
+							<span className={styles.todoText}>{todo.title}</span>
+							<Button
+								onClick={onEditTodo}
+								type={'edit'}
+								isLoading={isLoading}
+							/>
+							<Button
+								onClick={onRemoveTodo}
+								type={'remove'}
+								isLoading={isLoading}
+							/>
 						</div>
 					))}
+				</div>
 			</div>
 		</>
 	);

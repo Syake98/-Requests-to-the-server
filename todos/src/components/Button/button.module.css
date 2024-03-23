@@ -1,0 +1,64 @@
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 5px;
+	gap: 5px;
+	padding: 5px;
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	border: 1px solid rgb(185, 73, 148);
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.button img {
+	width: 30px;
+	padding: 2px;
+}
+
+.button :hover {
+	transform: scale(1.1);
+}
+
+.button :active {
+	transform: scale(0.9);
+}
+
+.add {
+	background-color: rgb(171, 255, 82);
+}
+
+.add:hover {
+	background-color: rgb(138, 255, 48);
+	transform: scale(1.1);
+}
+
+.remove {
+	background-color: rgb(255, 100, 100);
+}
+
+.remove:hover {
+	background-color: rgb(255, 72, 72);
+	transform: scale(1.1);
+}
+
+.edit {
+	background-color: aliceblue;
+}
+
+.edit:hover {
+	background-color: rgb(166, 210, 249);
+	transform: scale(1.1);
+}
+
+.sort {
+	background-color: #fff;
+	margin-right: 10px;
+}
+
+.sort:hover {
+	background-color: #fff4cb;
+	transform: scale(1.1);
+}

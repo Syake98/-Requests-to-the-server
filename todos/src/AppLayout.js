@@ -1,9 +1,9 @@
-import { Loader, ToDos } from './components/index';
+import {Loader, Todos} from './components'
 
-export const AppLayout = ({ todoList, isLoading }) => {
+export const AppLayout = ({ todoList, isLoading, }) => {
 	return (
 		<>
-			{isLoading ? <Loader /> : <ToDos todoList={todoList}/>}
+			{isLoading ? <Loader /> : <Todos todoList={todoList} />}
 		</>
 	);
 };

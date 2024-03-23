@@ -1,0 +1,17 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	max-width: 1024px;
+	margin: 100px auto;
+	text-align: center;
+	box-sizing: border-box;
+	border: 1px solid rgb(185, 73, 148);
+	border-radius: 10px;
+	background-color: aliceblue;
+}
+
+.emptyTodoList {
+	font-weight: 700;
+	margin-bottom: 25px;
+}
