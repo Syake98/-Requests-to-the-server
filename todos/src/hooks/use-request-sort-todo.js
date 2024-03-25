@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
-export const useRequestSortTodo = (todoList, setTodoList, refreshList) => {
+export const useRequestSortTodo = (todoList, setTodoList) => {
 	const [sort, setSort] = useState(false)
+	const [sortedTodos, setSortedTodos] = useState([])
+
 	const sortToggle = () => setSort(!sort)
-	
+
 	const sortList = () => {
-		setTodoList(todoList.toSorted((a, b) => a.title.localeCompare(b.title)))
+		setSortedTodos(todoList.toSorted((a, b) => a[1].title.localeCompare(b[1].title)))
 	}
 
 	const onSortTodo = () => {
@@ -14,10 +16,10 @@ export const useRequestSortTodo = (todoList, setTodoList, refreshList) => {
 		if (!sort) {
 			sortList()
 		} else {
-			refreshList()
+			setSortedTodos(todoList)
 		}
 	}
 
 
-	return { sort, onSortTodo };
+	return { sort, onSortTodo, sortedTodos };
 };

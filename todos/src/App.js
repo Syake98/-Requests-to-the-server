@@ -9,31 +9,30 @@ import {
 	useRequestSortTodo,
 	useSearch,
 } from './hooks';
+import { ref, onValue } from 'firebase/database';
+import { db } from './firebase';
 
 export const App = () => {
 	const [todoList, setTodoList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [refreshTodos, setRefreshTodos] = useState(false);
 	const [valueSearch, setValueSearch] = useState('');
 
-	const refreshList = () => setRefreshTodos(!refreshTodos);
-
 	useEffect(() => {
-		setIsLoading(true);
+		const todosDbRef = ref(db, 'todos');
 
-		fetch('http://localhost:3005/todos')
-			.then((responses) => responses.json())
-			.then((parsedResponses) => {
-				setTodoList(parsedResponses);
-			})
-			.finally(() => setIsLoading(false));
-	}, [refreshTodos]);
+		return onValue(todosDbRef, (snapshot) => {
+			const loadedTodos = snapshot.val() || [];
 
-	const { onAddTodo } = useRequestAddTodo(refreshList);
-	const { onRemoveTodo } = useRequestRemoveTodo(refreshList);
-	const { onEditTodo } = useRequestEditTodo(refreshList);
-	const { onSortTodo } = useRequestSortTodo(todoList, setTodoList, refreshList);
-	const { resultSearch } = useSearch(todoList, valueSearch);
+			setTodoList(Object.entries(loadedTodos));
+			setIsLoading(false);
+		});
+	}, []);
+
+	const { onAddTodo } = useRequestAddTodo();
+	const { onRemoveTodo } = useRequestRemoveTodo();
+	const { onEditTodo } = useRequestEditTodo();
+	const { sort, onSortTodo, sortedTodos } = useRequestSortTodo(todoList);
+	const { resultSearch, debounceValue } = useSearch(todoList, valueSearch);
 
 	return (
 		<div className={styles.container}>
@@ -47,7 +46,8 @@ export const App = () => {
 				<Loader />
 			) : (
 				<div>
-					{resultSearch.length === 0 ? (
+					{(debounceValue && resultSearch.length === 0) ||
+					todoList.length === 0 ? (
 						<small className={styles.emptyTodoList}>
 							{todoList.length === 0
 								? 'Список дел пуст'
@@ -55,7 +55,9 @@ export const App = () => {
 						</small>
 					) : (
 						<Todos
-							todoList={(valueSearch ? resultSearch : todoList)}
+							todoList={
+								valueSearch ? resultSearch : sort ? sortedTodos : todoList
+							}
 							onRemoveTodo={onRemoveTodo}
 							onEditTodo={onEditTodo}
 						/>

@@ -6,8 +6,8 @@ export const Todos = ({ todoList, onEditTodo, onRemoveTodo, isLoading }) => {
 		<>
 			<div className={styles.todoList}>
 				<div>
-					{todoList.map((todo) => (
-						<div key={todo.id} className={styles.todo} id={todo.id}>
+					{todoList.map(([id, todo]) => (
+						<div key={id} className={styles.todo} id={id}>
 							<span className={styles.todoText}>{todo.title}</span>
 							<Button
 								onClick={onEditTodo}

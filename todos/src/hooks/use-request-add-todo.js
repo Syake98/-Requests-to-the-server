@@ -1,16 +1,16 @@
-export const useRequestAddTodo = (refreshList) => {
+import { ref, push } from 'firebase/database';
+import { db } from '../firebase';
+
+export const useRequestAddTodo = () => {
 	const onAddTodo = () => {
 		const newTodo = prompt('Введите новую задачу:');
 
-		if (newTodo && newTodo.trim() !== '') {
-			fetch('http://localhost:3005/todos', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json;charset=utf-8' },
-				body: JSON.stringify({
-					title: newTodo,
-				}),
-			})
-			.then(() => refreshList());
+		const todosDbRef = ref(db, 'todos');
+
+		if (newTodo && newTodo?.trim()) {
+			push(todosDbRef, {
+				title: newTodo,
+			});
 		}
 	};
 	return { onAddTodo };

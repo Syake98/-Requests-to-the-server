@@ -1,20 +1,18 @@
-export const useRequestEditTodo = (refreshList) => {
+import { ref, set } from 'firebase/database';
+import { db } from '../firebase';
+
+export const useRequestEditTodo = () => {
 	const onEditTodo = (event) => {
 		const { id } = event.target.closest('div');
 		const { textContent } = event.target.closest('div').children[0];
+		const todoDbRef = ref(db, `todos/${id}`);
 
 		const editTodo = prompt('Отредактируйте задание:', textContent);
 
-		if (editTodo && editTodo.trim() !== '') {
-			fetch(`http://localhost:3005/todos/${id}`, {
-				method: 'PUT',
-				headers: { 'Content-Type': 'application/json;charset=utf-8' },
-				body: JSON.stringify({
-					title: editTodo,
-				}),
-			})
-				// .then((response) => response.json())
-				.then(() => refreshList());
+		if (editTodo && editTodo?.trim()) {
+			set(todoDbRef, {
+				title: editTodo,
+			});
 		}
 	};
 	return { onEditTodo };

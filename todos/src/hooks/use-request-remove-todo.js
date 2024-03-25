@@ -1,11 +1,12 @@
-export const useRequestRemoveTodo = (refreshList) => {
+import { ref, remove } from 'firebase/database';
+import { db } from '../firebase';
+
+export const useRequestRemoveTodo = () => {
 	const onRemoveTodo = (event) => {
 		const { id } = event.target.closest('div');
-		fetch(`http://localhost:3005/todos/${id}`, {
-			method: 'DELETE',
-		})
-			// .then((response) => response.json())
-			.then(() => refreshList());
+		const todoDbRef = ref(db, `todos/${id}`);
+
+		remove(todoDbRef);
 	};
 	return { onRemoveTodo };
 };
