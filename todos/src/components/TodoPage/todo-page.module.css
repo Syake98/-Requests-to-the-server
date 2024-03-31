@@ -1,0 +1,29 @@
+.todoPage {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 10px;
+	max-width: 1024px;
+	margin: 100px auto;
+	text-align: center;
+	box-sizing: border-box;
+	border: 1px solid rgb(185, 73, 148);
+	border-radius: 10px;
+	background-color: aliceblue;
+	min-height: 200px;
+}
+
+.todoText {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	padding: 10px;
+	overflow-x: hidden;
+}
+
+.todoButtons {
+	display: flex;
+	text-align: right;
+	padding: 10px;
+	overflow-x: hidden;
+}

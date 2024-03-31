@@ -11,13 +11,13 @@ body {
 
 .todo {
 	display: flex;
-	justify-content: flex-end;
-	align-items: stretch;
+	justify-content: flex-start;
 	max-width: 1024px;
+	padding: 10px 20px;
 	border: 1px solid rgb(185, 73, 148);
 	border-radius: 10px;
 	background-color: bisque;
-	text-align: center;
+	overflow: hidden;
 }
 
 .todo:hover {
@@ -26,10 +26,7 @@ body {
 
 
 .todoText {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-e;
-	align-items: center;
-	padding: 10px;
-	overflow-x: hidden;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

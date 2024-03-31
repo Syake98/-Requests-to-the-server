@@ -1,24 +1,16 @@
 import styles from './todos.module.css';
-import { Button } from '../../components';
+import { Link } from 'react-router-dom';
 
-export const Todos = ({ todoList, onEditTodo, onRemoveTodo, isLoading }) => {
+export const Todos = ({ todoList }) => {
 	return (
 		<>
 			<div className={styles.todoList}>
 				<div>
 					{todoList.map((todo) => (
 						<div key={todo.id} className={styles.todo} id={todo.id}>
-							<span className={styles.todoText}>{todo.title}</span>
-							<Button
-								onClick={onEditTodo}
-								type={'edit'}
-								isLoading={isLoading}
-							/>
-							<Button
-								onClick={onRemoveTodo}
-								type={'remove'}
-								isLoading={isLoading}
-							/>
+							<Link to={`/task/${todo.id}`} className={styles.todoText}>
+								{todo.title}
+							</Link>
 						</div>
 					))}
 				</div>

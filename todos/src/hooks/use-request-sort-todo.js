@@ -1,23 +1,24 @@
 import { useState } from 'react';
 
 export const useRequestSortTodo = (todoList, setTodoList, refreshList) => {
-	const [sort, setSort] = useState(false)
-	const sortToggle = () => setSort(!sort)
-	
+	const [sort, setSort] = useState(false);
+
+	const sortToggle = () => setSort(!sort);
+
 	const sortList = () => {
-		setTodoList(todoList.toSorted((a, b) => a.title.localeCompare(b.title)))
-	}
+		setTodoList(todoList.toSorted((a, b) => a.title.localeCompare(b.title)));
+	};
 
 	const onSortTodo = () => {
-		sortToggle()
+		sortToggle();
 
 		if (!sort) {
-			sortList()
+			sortList();
 		} else {
-			refreshList()
+			
+			refreshList();
 		}
-	}
-
+	};
 
 	return { sort, onSortTodo };
 };
