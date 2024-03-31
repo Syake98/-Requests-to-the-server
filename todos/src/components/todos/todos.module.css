@@ -1,8 +1,8 @@
 body {
-	background-color:cornsilk;
+	background-color: cornsilk;
 }
 
-.todoList{
+.todoList {
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
@@ -21,9 +21,8 @@ body {
 }
 
 .todo:hover {
-	background-color:antiquewhite;
+	background-color: antiquewhite;
 }
-
 
 .todoText {
 	overflow: hidden;

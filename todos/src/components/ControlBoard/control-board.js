@@ -1,7 +1,7 @@
 import styles from './control-board.module.css';
 import { Button } from '../../components';
 
-export const ControlBoard = ({ onAddTodo, onSortTodo, setValueSearch }) => {
+export const ControlBoard = ({ onAddTodo, onSortTodo, valueSearch, setValueSearch }) => {
 	return (
 		<>
 			<h2 className={styles.title}>Список задач</h2>
@@ -10,6 +10,7 @@ export const ControlBoard = ({ onAddTodo, onSortTodo, setValueSearch }) => {
 					className={styles.searchInput}
 					type="text"
 					placeholder="Поиск совпадающих задач"
+					value={valueSearch}
 					onChange={(e) => setValueSearch(e.target.value)}
 				/>
 				<Button onClick={onAddTodo} type={'add'}/>
