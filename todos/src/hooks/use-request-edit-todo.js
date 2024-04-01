@@ -9,8 +9,7 @@ export const useRequestEditTodo = (refreshList) => {
 				body: JSON.stringify({
 					title: editTodo,
 				}),
-			})
-				.then(() => refreshList());
+			}).then(() => refreshList());
 		}
 	};
 	return { onEditTodo };

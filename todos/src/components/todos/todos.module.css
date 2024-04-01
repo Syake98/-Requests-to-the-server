@@ -24,8 +24,18 @@ body {
 	background-color: antiquewhite;
 }
 
-.todoText {
+.todoTextLink {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	text-decoration: none;
+	color: rgb(221, 90, 177);
+}
+
+.todoTextLink:hover {
+	transform: scale(1.1);
+}
+
+.todoTextLink:visited {
+	color: rgb(138, 55, 110);
 }

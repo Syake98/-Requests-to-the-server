@@ -15,10 +15,7 @@ const IMG = {
 
 export const Button = ({ type, onClick }) => {
 	return (
-		<button
-			className={`${styles.button} ${styles[type]}`}
-			onClick={onClick}
-		>
+		<button className={`${styles.button} ${styles[type]}`} onClick={onClick}>
 			<img src={IMG[type]} alt={type} />
 		</button>
 	);

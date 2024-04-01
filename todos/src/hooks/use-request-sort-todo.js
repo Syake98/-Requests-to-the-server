@@ -15,7 +15,6 @@ export const useRequestSortTodo = (todoList, setTodoList, refreshList) => {
 		if (!sort) {
 			sortList();
 		} else {
-			
 			refreshList();
 		}
 	};

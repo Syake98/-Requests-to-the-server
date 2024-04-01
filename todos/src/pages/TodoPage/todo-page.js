@@ -1,4 +1,4 @@
-import styles from './todo-page.module.css';
+import styles from '../common-page-design.module.css';
 import { Button } from '../../components';
 import { useParams, useNavigate } from 'react-router-dom';
 

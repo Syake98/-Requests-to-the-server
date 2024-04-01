@@ -34,57 +34,28 @@ export const App = () => {
 	const { onSortTodo } = useRequestSortTodo(todoList, setTodoList, refreshList);
 	const { resultSearch } = useSearch(todoList, valueSearch);
 
+	const props = {
+		todoList,
+		setTodoList,
+		isLoading,
+		setIsLoading,
+		refreshTodos,
+		setRefreshTodos,
+		valueSearch,
+		setValueSearch,
+		onAddTodo,
+		onEditTodo,
+		onRemoveTodo,
+		onSortTodo,
+		resultSearch,
+	};
+
 	return (
 		<Routes>
-			<Route
-				path="/"
-				element={
-					<TodoMainPage
-						onAddTodo={onAddTodo}
-						onRemoveTodo={onRemoveTodo}
-						onEditTodo={onEditTodo}
-						onSortTodo={onSortTodo}
-						valueSearch={valueSearch}
-						setValueSearch={setValueSearch}
-						isLoading={isLoading}
-						resultSearch={resultSearch}
-						todoList={todoList}
-					/>
-				}
-			/>
-			<Route
-				path="/task/:id"
-				element={
-					<TodoPage
-						todoList={todoList}
-						onEditTodo={onEditTodo}
-						onRemoveTodo={onRemoveTodo}
-					/>
-				}
-			/>
+			<Route path="/" element={<TodoMainPage {...props} />} />
+			<Route path="/task/:id" element={<TodoPage {...props} />} />
 			<Route path="/deleted-page" element={<DeletedPage />} />
-			<Route path="/not-found-page" element={<NotFoundPage />} />
+			<Route path="/*" element={<NotFoundPage />} />
 		</Routes>
 	);
 };
-
-// const messageTodoSearch = () => {
-// 	<small className={styles.emptyTodoList}>
-// 		{todoList.length === 0 ? 'Список дел пуст' : 'Ничего не найдено'}
-// 	</small>;
-// };
-
-// const ExtendedLink = ({ to, children }) => (
-// 	<NavLink to={to}>
-// 		{({ isActive }) =>
-// 			isActive ? (
-// 				<>
-// 					<span>{children}</span>
-// 					<span className={styles.activeLinkIcon} />
-// 				</>
-// 			) : (
-// 				children
-// 			)
-// 		}
-// 	</NavLink>
-// );

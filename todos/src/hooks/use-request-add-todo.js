@@ -9,8 +9,7 @@ export const useRequestAddTodo = (refreshList) => {
 				body: JSON.stringify({
 					title: newTodo,
 				}),
-			})
-			.then(() => refreshList());
+			}).then(() => refreshList());
 		}
 	};
 	return { onAddTodo };

@@ -3,18 +3,14 @@ import { Link } from 'react-router-dom';
 
 export const Todos = ({ todoList }) => {
 	return (
-		<>
-			<div className={styles.todoList}>
-				<div>
-					{todoList.map((todo) => (
-						<div key={todo.id} className={styles.todo} id={todo.id}>
-							<Link to={`/task/${todo.id}`} className={styles.todoText}>
-								{todo.title}
-							</Link>
-						</div>
-					))}
+		<div className={styles.todoList}>
+			{todoList.map((todo) => (
+				<div key={todo.id} className={styles.todo} id={todo.id}>
+					<Link to={`/task/${todo.id}`} className={styles.todoTextLink}>
+						{todo.title}
+					</Link>
 				</div>
-			</div>
-		</>
+			))}
+		</div>
 	);
 };
