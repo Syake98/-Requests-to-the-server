@@ -7,12 +7,12 @@ export const useSearch = (todoList, valueSearch) => {
 	const debounceValue = useDebounce(valueSearch, 1000);
 
 	useEffect(() => {
-		if (debounceValue?.trim()) {
-			fetch(`http://localhost:3005/todos?title=${debounceValue}`)
-				.then((response) => response.json())
-				.then((data) => {
-					setResultSearch(data);
-				});
+		if (debounceValue?.trim().length > 0) {
+			setResultSearch(
+				todoList.filter((task) =>
+					task.title.toLowerCase().includes(debounceValue.toLowerCase()),
+				),
+			);
 		} else {
 			setResultSearch(todoList);
 		}

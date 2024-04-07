@@ -1,4 +1,3 @@
-import './App.css';
 import styles from './app.module.css';
 import { useState, useEffect } from 'react';
 import { ControlBoard, Loader, Todos } from './components';
@@ -9,6 +8,7 @@ import {
 	useRequestSortTodo,
 	useSearch,
 } from './hooks';
+import { AppContext } from './context';
 
 export const App = () => {
 	const [todoList, setTodoList] = useState([]);
@@ -35,33 +35,42 @@ export const App = () => {
 	const { onSortTodo } = useRequestSortTodo(todoList, setTodoList, refreshList);
 	const { resultSearch } = useSearch(todoList, valueSearch);
 
+	const props = {
+		todoList,
+		setTodoList,
+		isLoading,
+		setIsLoading,
+		refreshTodos,
+		setRefreshTodos,
+		valueSearch,
+		setValueSearch,
+		onAddTodo,
+		onEditTodo,
+		onRemoveTodo,
+		onSortTodo,
+		resultSearch,
+	};
+
 	return (
-		<div className={styles.container}>
-			<ControlBoard
-				onAddTodo={onAddTodo}
-				onSortTodo={onSortTodo}
-				isLoading={isLoading}
-				setValueSearch={setValueSearch}
-			/>
-			{isLoading ? (
-				<Loader />
-			) : (
-				<div>
-					{resultSearch.length === 0 ? (
-						<small className={styles.emptyTodoList}>
-							{todoList.length === 0
-								? 'Список дел пуст'
-								: 'Ничего не найдено'}
-						</small>
-					) : (
-						<Todos
-							todoList={(valueSearch ? resultSearch : todoList)}
-							onRemoveTodo={onRemoveTodo}
-							onEditTodo={onEditTodo}
-						/>
-					)}
-				</div>
-			)}
-		</div>
+		<AppContext.Provider value={props}>
+			<div className={styles.container}>
+				<ControlBoard />
+				{isLoading ? (
+					<Loader />
+				) : (
+					<div>
+						{resultSearch.length === 0 ? (
+							<small className={styles.emptyTodoList}>
+								{todoList.length === 0
+									? 'Список дел пуст'
+									: 'Ничего не найдено'}
+							</small>
+						) : (
+							<Todos />
+						)}
+					</div>
+				)}
+			</div>
+		</AppContext.Provider>
 	);
 };

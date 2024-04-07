@@ -1,28 +1,20 @@
 import styles from './todos.module.css';
 import { Button } from '../../components';
+import { useContext } from 'react';
+import { AppContext } from '../../context';
 
-export const Todos = ({ todoList, onEditTodo, onRemoveTodo, isLoading }) => {
+export const Todos = () => {
+	const {todoList,valueSearch, resultSearch,onEditTodo, onRemoveTodo } = useContext(AppContext);
+	const finaltodoList = valueSearch ? resultSearch : todoList;
 	return (
-		<>
-			<div className={styles.todoList}>
-				<div>
-					{todoList.map((todo) => (
-						<div key={todo.id} className={styles.todo} id={todo.id}>
-							<span className={styles.todoText}>{todo.title}</span>
-							<Button
-								onClick={onEditTodo}
-								type={'edit'}
-								isLoading={isLoading}
-							/>
-							<Button
-								onClick={onRemoveTodo}
-								type={'remove'}
-								isLoading={isLoading}
-							/>
-						</div>
-					))}
+		<div className={styles.todoList}>
+			{finaltodoList.map((todo) => (
+				<div key={todo.id} className={styles.todo} id={todo.id}>
+					<span className={styles.todoText}>{todo.title}</span>
+					<Button onClick={() => onEditTodo(todo.id)} type={'edit'} />
+					<Button onClick={() => onRemoveTodo(todo.id)} type={'remove'} />
 				</div>
-			</div>
-		</>
+			))}
+		</div>
 	);
 };
