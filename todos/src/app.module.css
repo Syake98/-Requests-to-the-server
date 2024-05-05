@@ -9,6 +9,8 @@
 	border: 1px solid rgb(185, 73, 148);
 	border-radius: 10px;
 	background-color: aliceblue;
+	user-select: none;
+	cursor: default;
 }
 
 .emptyTodoList {

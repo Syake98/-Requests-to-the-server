@@ -1,49 +1,32 @@
 import './App.css';
 import styles from './app.module.css';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTodos } from './actions';
+import { selectorTodos } from './selectors';
 import { ControlBoard, Loader, Todos } from './components';
-import {
-	useRequestAddTodo,
-	useRequestRemoveTodo,
-	useRequestEditTodo,
-	useRequestSortTodo,
-	useSearch,
-} from './hooks';
 
 export const App = () => {
-	const [todoList, setTodoList] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [refreshTodos, setRefreshTodos] = useState(false);
-	const [valueSearch, setValueSearch] = useState('');
+	const dispatch = useDispatch();
+	const todos = useSelector(selectorTodos)
 
-	const refreshList = () => setRefreshTodos(!refreshTodos);
+	const [isLoading, setIsLoading] = useState(false);
+	// const { resultSearch } = useSearch(todoList, valueSearch);
 
 	useEffect(() => {
 		setIsLoading(true);
-
-		fetch('http://localhost:3005/todos')
-			.then((responses) => responses.json())
-			.then((parsedResponses) => {
-				setTodoList(parsedResponses);
+		dispatch(getTodos())
+			.catch((error) => {
+				console.error(error);
 			})
 			.finally(() => setIsLoading(false));
-	}, [refreshTodos]);
-
-	const { onAddTodo } = useRequestAddTodo(refreshList);
-	const { onRemoveTodo } = useRequestRemoveTodo(refreshList);
-	const { onEditTodo } = useRequestEditTodo(refreshList);
-	const { onSortTodo } = useRequestSortTodo(refreshList);
-	const { resultSearch } = useSearch(todoList, valueSearch);
+	});
 
 	return (
 		<div className={styles.container}>
-			<ControlBoard
-				onAddTodo={onAddTodo}
-				onSortTodo={onSortTodo}
-				isLoading={isLoading}
-				setValueSearch={setValueSearch}
-			/>
-			{isLoading ? (
+			<ControlBoard />
+			{isLoading ? <Loader /> : <Todos />}
+			{/* {isLoading ? (
 				<Loader />
 			) : (
 				<div>
@@ -54,14 +37,10 @@ export const App = () => {
 								: 'Ничего не найдено'}
 						</small>
 					) : (
-						<Todos
-							todoList={valueSearch ? resultSearch : todoList}
-							onRemoveTodo={onRemoveTodo}
-							onEditTodo={onEditTodo}
-						/>
+						<Todos />
 					)}
 				</div>
-			)}
+			)} */}
 		</div>
 	);
 };
