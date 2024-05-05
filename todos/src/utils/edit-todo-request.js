@@ -5,11 +5,9 @@ export const editTodoRequest = (id, editTodo) => {
 		body: JSON.stringify({
 			title: editTodo,
 		}),
-	}).then((response) => {
-		if (response.ok) {
-			return response.json();
-		} else {
-			throw new Error('При редактировании задачи произошла ошибка');
-		}
-	});
+	})
+		.then((response) => response.json())
+		.catch((error) => {
+			throw new Error(error.message);
+		});
 };

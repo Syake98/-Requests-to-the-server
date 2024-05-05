@@ -1,9 +1,10 @@
-export const getTodosRequest = () => {
-	return fetch(`http://localhost:3005/todos`).then((response) => {
-		if (response.ok) {
-			return response.json();
-		} else {
-			throw new Error('При получении задач произошла ошибка');
-		}
-	});
+export const getTodosRequest = (setIsLoading) => {
+	setIsLoading(true);
+
+	return fetch(`http://localhost:3005/todos`)
+		.then((response) => response.json())
+		.catch((error) => {
+			throw new Error(error.message);
+		})
+		.finally(() => setIsLoading(false));
 };

@@ -11,9 +11,9 @@ const IMG = {
 	sort,
 };
 
-export const Button = ({ onClick, type, isButtonDisable }) => {
+export const Button = ({ onClick, type, isDisabled }) => {
 	return (
-		<button className={`${styles.button} ${styles[type]}`} onClick={onClick} disabled={isButtonDisable}>
+		<button className={`${styles.button} ${styles[type]}`} onClick={onClick} disabled={isDisabled}>
 			<img src={IMG[type]} alt={type} />
 		</button>
 	);

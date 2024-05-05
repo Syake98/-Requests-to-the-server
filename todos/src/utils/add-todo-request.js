@@ -5,11 +5,9 @@ export const addTodoRequest = (newTodo) => {
 		body: JSON.stringify({
 			title: newTodo,
 		}),
-	}).then((response) => {
-		if (response.ok) {
-			return response.json();
-		} else {
-			throw new Error('При добавлении задачи произошла ошибка');
-		}
-	});
+	})
+		.then((response) => response.json())
+		.catch((error) => {
+			throw new Error(error.message);
+		});
 };

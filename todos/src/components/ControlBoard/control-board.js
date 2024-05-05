@@ -1,39 +1,35 @@
 import styles from './control-board.module.css';
-import { Button } from '../../components';
 
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectorSort, selectorSearch, selectorTodos } from '../../selectors';
+import { useDispatch } from 'react-redux';
 
 import { addTodo } from '../../actions';
+import { Button } from '../../components';
+import { useDebounce } from '../../utils';
 
-export const ControlBoard = () => {
+export const ControlBoard = ({ isLoading }) => {
 	const dispatch = useDispatch();
-	const sortedTodos = useSelector(selectorSort)
-	const searchedTodos = useSelector(selectorSearch)
-	const todos = useSelector(searchedTodos)
+	const [filter, setFilter] = useState('');
+	const debFilter = useDebounce(filter, 500);
 
-	const [isButtonDisable, setIsButtonDisable] = useState(false);
+	useEffect(() => {
+		dispatch({ type: 'SEARCH_TODOS', payload: debFilter });
+	}, [debFilter]);
 
 	const handleClickAddTodo = () => {
 		const newTodo = prompt('Введите задачу:');
-
 		if (newTodo?.trim()) {
-			setIsButtonDisable(true);
-			dispatch(addTodo(newTodo.trim()))
-				.catch((error) => console.error(error))
-				.finally(() => setIsButtonDisable(false));
+			dispatch(addTodo(newTodo.trim()));
 		}
 	};
 
 	const handleClickSortTodos = () => {
-		dispatch({type: 'SORT_TODOS'})
-	}
+		dispatch({ type: 'SORT_TODOS' });
+	};
 
-	const handleClickSearchTodos = () => {
-		dispatch({type: 'SEARCH_TODOS
-'})
-	}
+	const handleChange = ({ target }) => {
+		setFilter(target.value);
+	};
 
 	return (
 		<>
@@ -43,18 +39,10 @@ export const ControlBoard = () => {
 					className={styles.searchInput}
 					type="text"
 					placeholder="Поиск совпадающих задач"
-					// onChange={(e) => setValueSearch(e.target.value)}
+					onChange={handleChange}
 				/>
-				<Button
-					onClick={handleClickAddTodo}
-					type={'add'}
-					isButtonDisable={isButtonDisable}
-				/>
-				<Button
-					onClick={handleClickSortTodos}
-					type={'sort'}
-					disable={isButtonDisable}
-				/>
+				<Button onClick={handleClickAddTodo} type={'add'} isDisabled={isLoading} />
+				<Button onClick={handleClickSortTodos} type={'sort'} isDisabled={isLoading} />
 			</div>
 		</>
 	);

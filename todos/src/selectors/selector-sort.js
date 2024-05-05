@@ -1,1 +1,1 @@
-export const selectorSort = (store) => store.listStateReducer.sort;
+export const selectorSort = (store) => store.listState.sort;

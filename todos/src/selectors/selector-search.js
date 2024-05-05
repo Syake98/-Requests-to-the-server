@@ -1,1 +1,1 @@
-export const selectorSearch = (store) => store.listStateReducer.search;
+export const selectorSearch = (store) => store.listState.search;
